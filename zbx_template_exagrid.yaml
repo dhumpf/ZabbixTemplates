@@ -1,0 +1,790 @@
+zabbix_export:
+  version: '6.0'
+  date: '2023-07-04T08:52:11Z'
+  groups:
+    -
+      uuid: 36bff6c29af64692839d077febfc7079
+      name: 'Templates/Network devices'
+  templates:
+    -
+      uuid: c5dba86d3cb24a758f95fb00dbbb7c33
+      template: 'Exagrid Storage'
+      name: 'Exagrid Storage'
+      templates:
+        -
+          name: 'Generic SNMP'
+        -
+          name: 'Interfaces SNMP'
+        -
+          name: 'Linux filesystems SNMP'
+      groups:
+        -
+          name: 'Templates/Network devices'
+      items:
+        -
+          uuid: 97337b79cf8e49089c0b7ddfbed9e14e
+          name: 'Backup Data Available'
+          type: CALCULATED
+          key: egBackupDataAvailable
+          delay: 5m
+          history: 7d
+          trends: 90d
+          value_type: FLOAT
+          units: B
+          params: |
+            last(//egBackupDataAvailableWholeGigabytes) + 
+            last(//egBackupDataAvailableFractionalGigabytes)
+          description: 'The amount of available backup data space'
+        -
+          uuid: e41090b1fe79457584960a5f0b7217f6
+          name: 'Backup Data Available Fractional Gigabytes'
+          type: SNMP_AGENT
+          snmp_oid: 'EXAGRID-MIB::egBackupDataAvailableFractionalGigabytes.0'
+          key: egBackupDataAvailableFractionalGigabytes
+          delay: 5m
+          history: 7d
+          trends: 90d
+          value_type: FLOAT
+          units: B
+          description: 'The amount of data available for restore by a backup application below 1 Gigabyte in bytes'
+        -
+          uuid: dfb5098b725c406fa06fc45fc8932577
+          name: 'Backup Data Available Whole Gigabytes'
+          type: SNMP_AGENT
+          snmp_oid: 'EXAGRID-MIB::egBackupDataAvailableWholeGigabytes.0'
+          key: egBackupDataAvailableWholeGigabytes
+          delay: 5m
+          history: 7d
+          trends: 90d
+          value_type: FLOAT
+          units: B
+          description: 'The amount of data available for restore by a backup application scaled to GigaBytes (10^9) bytes'
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '1099511628'
+        -
+          uuid: 9b9715cc01ba44aa98504c47d905f8b4
+          name: 'Backup Data Space Consumed'
+          type: CALCULATED
+          key: egBackupDataSpaceConsumed
+          delay: 5m
+          history: 7d
+          trends: 90d
+          value_type: FLOAT
+          units: B
+          params: |
+            last(//egBackupDataSpaceConsumedWholeGigabytes) + 
+            last(//egBackupDataSpaceConsumedFractionalGigabytes)
+          description: 'The amount of consumed backup data space'
+        -
+          uuid: 3c41f0c8a6b44efc85e80c38b275dad3
+          name: 'Backup Data Space Consumed Fractional Gigabytes'
+          type: SNMP_AGENT
+          snmp_oid: 'EXAGRID-MIB::egBackupDataSpaceConsumedFractionalGigabytes.0'
+          key: egBackupDataSpaceConsumedFractionalGigabytes
+          delay: 5m
+          history: 7d
+          trends: 90d
+          value_type: FLOAT
+          units: B
+          description: 'The amount of consumed retention space below 1 Gigabyte in bytes'
+        -
+          uuid: acec46f183a04d8dafcd5b5a13fb8527
+          name: 'Backup Data Space Consumed Whole Gigabytes'
+          type: SNMP_AGENT
+          snmp_oid: 'EXAGRID-MIB::egBackupDataSpaceConsumedWholeGigabytes.0'
+          key: egBackupDataSpaceConsumedWholeGigabytes
+          delay: 5m
+          history: 7d
+          trends: 90d
+          value_type: FLOAT
+          units: B
+          description: 'The amount of consumed retention space scaled to GigaBytes (10^9) bytes'
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '1099511628'
+        -
+          uuid: 59a61f25abfe466d8fab6cf2c37827a4
+          name: 'Landing Space Available'
+          type: CALCULATED
+          key: egLandingSpaceAvailable
+          delay: 5m
+          history: 7d
+          trends: 90d
+          value_type: FLOAT
+          units: B
+          params: |
+            last(//egLandingSpaceAvailableWholeGigabytes) + 
+            last(//egLandingSpaceAvailableFractionalGigabytes)
+          description: 'The amount of available landing space'
+        -
+          uuid: 189ad8a3500542e49281fb2ba42fc5d9
+          name: 'Landing Space Available Fractional Gigabytes'
+          type: SNMP_AGENT
+          snmp_oid: 'EXAGRID-MIB::egLandingSpaceAvailableFractionalGigabytes.0'
+          key: egLandingSpaceAvailableFractionalGigabytes
+          delay: 5m
+          history: 7d
+          trends: 90d
+          value_type: FLOAT
+          units: B
+          description: 'The amount of available landing space below 1 Gigabyte in bytes'
+        -
+          uuid: 6fc3a2a496fd4257a644a79eb72b307e
+          name: 'Landing Space Available Whole Gigabytes'
+          type: SNMP_AGENT
+          snmp_oid: 'EXAGRID-MIB::egLandingSpaceAvailableWholeGigabytes.0'
+          key: egLandingSpaceAvailableWholeGigabytes
+          delay: 5m
+          history: 7d
+          trends: 90d
+          value_type: FLOAT
+          units: B
+          description: 'The amount of available landing space scaled to GigaBytes (10^9) bytes'
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '1099511628'
+        -
+          uuid: 126ab222865f4650bea5614d897f68db
+          name: 'Landing Space Configured'
+          type: CALCULATED
+          key: egLandingSpaceConfigured
+          delay: 5m
+          history: 7d
+          trends: 90d
+          value_type: FLOAT
+          units: B
+          params: |
+            last(//egLandingSpaceConfiguredWholeGigabytes) + 
+            last(//egLandingSpaceConfiguredFractionalGigabytes)
+          description: 'The amount of configured landing space'
+        -
+          uuid: f313bfe5447c448b8e6eb5aa03a714f1
+          name: 'Landing Space Configured Fractional Gigabytes'
+          type: SNMP_AGENT
+          snmp_oid: 'EXAGRID-MIB::egLandingSpaceConfiguredFractionalGigabytes.0'
+          key: egLandingSpaceConfiguredFractionalGigabytes
+          delay: 5m
+          history: 7d
+          trends: 90d
+          value_type: FLOAT
+          units: B
+          description: 'The amount of configured landing space below 1 Gigabyte in bytes'
+        -
+          uuid: 9804e927f66748d984b53d7bf0aee740
+          name: 'Landing Space Configured Whole Gigabytes'
+          type: SNMP_AGENT
+          snmp_oid: 'EXAGRID-MIB::egLandingSpaceConfiguredWholeGigabytes.0'
+          key: egLandingSpaceConfiguredWholeGigabytes
+          delay: 5m
+          history: 7d
+          trends: 90d
+          value_type: FLOAT
+          units: B
+          description: 'The amount of configured landing space scaled to GigaBytes (10^9) bytes'
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '1099511628'
+        -
+          uuid: 97540a16cf774a8fb9ae3bdc5fb8097d
+          name: 'Pending Deduplication Age'
+          type: SNMP_AGENT
+          snmp_oid: 'EXAGRID-MIB::egPendingDeduplicationAge.0'
+          key: egPendingDeduplicationAge
+          delay: 5m
+          history: 7d
+          trends: 90d
+          value_type: FLOAT
+          description: 'The amount of time that data has been available for deduplication, but has not yet been deduplicated'
+        -
+          uuid: bc4f3af631c14ff099335fe82303e119
+          name: 'Pending Deduplication Fractional Gigabytes'
+          type: SNMP_AGENT
+          snmp_oid: 'EXAGRID-MIB::egPendingDeduplicationFractionalGigabytes.0'
+          key: egPendingDeduplicationFractionalGigabytes
+          delay: 5m
+          history: 7d
+          trends: 90d
+          value_type: FLOAT
+          units: B
+          description: 'The amount of data not yet deduplicated below 1 Gigabyte in bytes'
+        -
+          uuid: f2cf6878252847789f2acad0fa33d912
+          name: 'Pending Deduplication Whole Gigabytes'
+          type: SNMP_AGENT
+          snmp_oid: 'EXAGRID-MIB::egPendingDeduplicationWholeGigabytes.0'
+          key: egPendingDeduplicationWholeGigabytes
+          delay: 5m
+          history: 7d
+          trends: 90d
+          value_type: FLOAT
+          units: B
+          description: 'The amount of data not yet deduplicated scaled to GigaBytes (10^9) bytes'
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '1099511628'
+        -
+          uuid: 8e44d7790c6d4ee3a835e7f4d63f2cb2
+          name: 'Pending Replication Age'
+          type: SNMP_AGENT
+          snmp_oid: 'EXAGRID-MIB::egPendingReplicationAge.0'
+          key: egPendingReplicationAge
+          delay: 5m
+          history: 7d
+          trends: 90d
+          value_type: FLOAT
+          description: 'The amount of time that data has been available for replication, but has not yet been replicated'
+        -
+          uuid: e9c03522f6fc46d9b3c29090cf54aaa6
+          name: 'Pending Replication Fractional Gigabytes'
+          type: SNMP_AGENT
+          snmp_oid: 'EXAGRID-MIB::egPendingReplicationFractionalGigabytes.0'
+          key: egPendingReplicationFractionalGigabytes
+          delay: 5m
+          history: 7d
+          trends: 90d
+          value_type: FLOAT
+          units: B
+          description: 'The amount of data not yet completed replication below 1 Gigabyte in bytes'
+        -
+          uuid: 021055ed2be04efeb431fa8b492d8faa
+          name: 'Pending Replication Whole Gigabytes'
+          type: SNMP_AGENT
+          snmp_oid: 'EXAGRID-MIB::egPendingReplicationWholeGigabytes.0'
+          key: egPendingReplicationWholeGigabytes
+          delay: 5m
+          history: 7d
+          trends: 90d
+          value_type: FLOAT
+          units: B
+          description: 'The amount of data not yet completed replication scaled to GigaBytes (10^9) bytes'
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '1099511628'
+        -
+          uuid: 146f350628144c4790ca9c1e59372ead
+          name: 'Retention Space Available'
+          type: CALCULATED
+          key: egRetentionSpaceAvailable
+          delay: 5m
+          history: 7d
+          trends: 90d
+          value_type: FLOAT
+          units: B
+          params: |
+            last(//egRetentionSpaceAvailableWholeGigabytes) + 
+            last(//egRetentionSpaceAvailableFractionalGigabytes)
+          description: 'The amount of available retention space'
+        -
+          uuid: 367a729ca9384f83935ced34fbb9216f
+          name: 'Retention Space Available Fractional Gigabytes'
+          type: SNMP_AGENT
+          snmp_oid: 'EXAGRID-MIB::egRetentionSpaceAvailableFractionalGigabytes.0'
+          key: egRetentionSpaceAvailableFractionalGigabytes
+          delay: 5m
+          history: 7d
+          trends: 90d
+          value_type: FLOAT
+          units: B
+          description: 'The amount of available retention space below 1 Gigabyte in bytes'
+        -
+          uuid: 8f01ff837cd04d78b2b95fa3458d4102
+          name: 'Retention Space Available Whole Gigabytes'
+          type: SNMP_AGENT
+          snmp_oid: 'EXAGRID-MIB::egRetentionSpaceAvailableWholeGigabytes.0'
+          key: egRetentionSpaceAvailableWholeGigabytes
+          delay: 5m
+          history: 7d
+          trends: 90d
+          value_type: FLOAT
+          units: B
+          description: 'The amount of available retention space scaled to GigaBytes (10^9) bytes'
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '1099511628'
+        -
+          uuid: 9eae3144879e4d48b274de0c6bdc58f4
+          name: 'Retention Space Configured'
+          type: CALCULATED
+          key: egRetentionSpaceConfigured
+          delay: 5m
+          history: 7d
+          trends: 90d
+          value_type: FLOAT
+          units: B
+          params: |
+            last(//egRetentionSpaceConfiguredWholeGigabytes) + 
+            last(//egRetentionSpaceConfiguredFractionalGigabytes)
+          description: 'The amount of configured retention space'
+        -
+          uuid: da81231d0a4240ba92f03262a2c5d39d
+          name: 'Retention Space Configured Fractional Gigabytes'
+          type: SNMP_AGENT
+          snmp_oid: 'EXAGRID-MIB::egRetentionSpaceConfiguredFractionalGigabytes.0'
+          key: egRetentionSpaceConfiguredFractionalGigabytes
+          delay: 5m
+          history: 7d
+          trends: 90d
+          value_type: FLOAT
+          units: B
+          description: 'The amount of configured retention space below 1 Gigabyte in bytes'
+        -
+          uuid: 4b9e852627414aadac24b369ac81bdd8
+          name: 'Retention Space Configured Whole Gigabytes'
+          type: SNMP_AGENT
+          snmp_oid: 'EXAGRID-MIB::egRetentionSpaceConfiguredWholeGigabytes.0'
+          key: egRetentionSpaceConfiguredWholeGigabytes
+          delay: 5m
+          history: 7d
+          trends: 90d
+          value_type: FLOAT
+          units: B
+          description: 'The amount of configured retention space scaled to GigaBytes (10^9) bytes'
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '1099511628'
+        -
+          uuid: 87a089d34e854810b0e24b530e598384
+          name: 'Retention Space Primary Shares'
+          type: CALCULATED
+          key: egRetentionSpacePrimaryShares
+          delay: 5m
+          history: 7d
+          trends: 90d
+          value_type: FLOAT
+          units: B
+          params: |
+            last(//egRetentionSpacePrimarySharesWholeGigabytes) + 
+            last(//egRetentionSpacePrimarySharesFractionalGigabytes)
+          description: 'The amount of primary shares retention space'
+        -
+          uuid: efd787c14f1c4814bf20d207cc75f4f6
+          name: 'Retention Space Primary Shares Fractional Gigabytes'
+          type: SNMP_AGENT
+          snmp_oid: 'EXAGRID-MIB::egRetentionSpacePrimarySharesFractionalGigabytes.0'
+          key: egRetentionSpacePrimarySharesFractionalGigabytes
+          delay: 5m
+          history: 7d
+          trends: 90d
+          value_type: FLOAT
+          units: B
+          description: 'The amount of retention space consumed by primary shares located anywhere in the Site below 1 Gigabyte in bytes'
+        -
+          uuid: df26fde72bc044e5815afe083eddb0ed
+          name: 'Retention Space Primary Shares Pending Purge'
+          type: CALCULATED
+          key: egRetentionSpacePrimarySharesPendingPurge
+          delay: 5m
+          history: 7d
+          trends: 90d
+          value_type: FLOAT
+          units: B
+          params: |
+            last(//egRetentionSpacePrimarySharesPendingPurgeWholeGigabytes) + 
+            last(//egRetentionSpacePrimarySharesPendingPurgeFractionalGigabytes)
+          description: 'The amount of primary shares pending purge retention space'
+        -
+          uuid: 8b022f475ef1438fba4196cf4e240a92
+          name: 'Retention Space Primary Shares Pending Purge Fractional Gigabytes'
+          type: SNMP_AGENT
+          snmp_oid: 'EXAGRID-MIB::egRetentionSpacePrimarySharesPendingPurgeFractionalGigabytes.0'
+          key: egRetentionSpacePrimarySharesPendingPurgeFractionalGigabytes
+          delay: 5m
+          history: 7d
+          trends: 90d
+          value_type: FLOAT
+          units: B
+          description: 'The amount of retention space consumed by retention time locked primary shares located anywhere in the Site below 1 Gigabyte in bytes'
+        -
+          uuid: 18942562e4df4bec926059d7e3ec3dc0
+          name: 'Retention Space Primary Shares Pending Purge Whole Gigabytes'
+          type: SNMP_AGENT
+          snmp_oid: 'EXAGRID-MIB::egRetentionSpacePrimarySharesPendingPurgeWholeGigabytes.0'
+          key: egRetentionSpacePrimarySharesPendingPurgeWholeGigabytes
+          delay: 5m
+          history: 7d
+          trends: 90d
+          value_type: FLOAT
+          units: B
+          description: 'The amount of retention space consumed by retention time locked primary shares located anywhere in the Site scaled to GigaBytes (10^9) bytes'
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '1099511628'
+        -
+          uuid: b18126d47da449a8bbdf5e9c6f89307b
+          name: 'Retention Space Primary Shares Whole Gigabytes'
+          type: SNMP_AGENT
+          snmp_oid: 'EXAGRID-MIB::egRetentionSpacePrimarySharesWholeGigabytes.0'
+          key: egRetentionSpacePrimarySharesWholeGigabytes
+          delay: 5m
+          history: 7d
+          trends: 90d
+          value_type: FLOAT
+          units: B
+          description: 'The amount of retention space consumed by primary shares located anywhere in the Site scaled to GigaBytes (10^9) bytes'
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '1099511628'
+        -
+          uuid: fb204bbe3c88496d88b5f20c8d77139c
+          name: 'Retention Space Replicas'
+          type: CALCULATED
+          key: egRetentionSpaceReplicas
+          delay: 5m
+          history: 7d
+          trends: 90d
+          value_type: FLOAT
+          units: B
+          params: |
+            last(//egRetentionSpaceReplicasWholeGigabytes) + 
+            last(//egRetentionSpaceReplicasFractionalGigabytes)
+          description: 'The amount of replicas retention space'
+        -
+          uuid: 9e982572dddc497dbd765006f447fe4d
+          name: 'Retention Space Replicas Fractional Gigabytes'
+          type: SNMP_AGENT
+          snmp_oid: 'EXAGRID-MIB::egRetentionSpaceReplicasFractionalGigabytes.0'
+          key: egRetentionSpaceReplicasFractionalGigabytes
+          delay: 5m
+          history: 7d
+          trends: 90d
+          value_type: FLOAT
+          units: B
+          description: 'The amount of retention space consumed by incoming replication from other Sites below 1 Gigabyte in bytes'
+        -
+          uuid: 5a2d79dfeeb74de4bedd37fecbd14b34
+          name: 'Retention Space Replicas Pending Purge'
+          type: CALCULATED
+          key: egRetentionSpaceReplicasPendingPurge
+          delay: 5m
+          history: 7d
+          trends: 90d
+          value_type: FLOAT
+          units: B
+          params: |
+            last(//egRetentionSpaceReplicasPendingPurgeWholeGigabytes) + 
+            last(//egRetentionSpaceReplicasPendingPurgeFractionalGigabytes)
+          description: 'The amount of replicas pending purge retention space'
+        -
+          uuid: ea66850ad166418eafb3473fbf10fd9a
+          name: 'Retention Space Replicas Pending Purge Fractional Gigabytes'
+          type: SNMP_AGENT
+          snmp_oid: 'EXAGRID-MIB::egRetentionSpaceReplicasPendingPurgeFractionalGigabytes.0'
+          key: egRetentionSpaceReplicasPendingPurgeFractionalGigabytes
+          delay: 5m
+          history: 7d
+          trends: 90d
+          value_type: FLOAT
+          units: B
+          description: 'The amount of retention space consumed by retention time locked incoming replication from other Sites below 1 Gigabyte in bytes'
+        -
+          uuid: 92b91f8ba3e64d708e7048a8001da40d
+          name: 'Retention Space Replicas Pending Purge Whole Gigabytes'
+          type: SNMP_AGENT
+          snmp_oid: 'EXAGRID-MIB::egRetentionSpaceReplicasPendingPurgeWholeGigabytes.0'
+          key: egRetentionSpaceReplicasPendingPurgeWholeGigabytes
+          delay: 5m
+          history: 7d
+          trends: 90d
+          value_type: FLOAT
+          units: B
+          description: 'The amount of retention space consumed by retention time locked incoming replication from other Sites scaled to GigaBytes (10^9) bytes'
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '1099511628'
+        -
+          uuid: 86fa3d0a5bd34925a61f8f0a20e24713
+          name: 'Retention Space Replicas Whole Gigabytes'
+          type: SNMP_AGENT
+          snmp_oid: 'EXAGRID-MIB::egRetentionSpaceReplicasWholeGigabytes.0'
+          key: egRetentionSpaceReplicasWholeGigabytes
+          delay: 5m
+          history: 7d
+          trends: 90d
+          value_type: FLOAT
+          units: B
+          description: 'The amount of retention space consumed by incoming replication from other Sites scaled to GigaBytes (10^9) bytes'
+          preprocessing:
+            -
+              type: MULTIPLIER
+              parameters:
+                - '1099511628'
+        -
+          uuid: 6e270054bfb648a9b92728c74d70096b
+          name: 'Server Alarm State'
+          type: SNMP_AGENT
+          snmp_oid: 'EXAGRID-MIB::egServerAlarmState.0'
+          key: egServerAlarmState
+          delay: 5m
+          history: 7d
+          trends: 90d
+          description: 'Current alarm state of the server.'
+          valuemap:
+            name: ServerAlarmState
+          triggers:
+            -
+              uuid: 7bb0794e9fc641f5952737128502ba6d
+              expression: 'last(/Exagrid Storage/egServerAlarmState)=3'
+              name: 'Server is in an Error Alarm State'
+              opdata: 'Alarm State: {ITEM.LASTVALUE1}'
+              priority: HIGH
+              description: 'Server is in an Error Alarm Stat'
+            -
+              uuid: 2e81ff7f4ba64cd1b0fbdc6cc7ea3b9b
+              expression: 'last(/Exagrid Storage/egServerAlarmState)=2'
+              name: 'Server is in a Warning Alarm State'
+              opdata: 'Alarm State: {ITEM.LASTVALUE1}'
+              priority: WARNING
+              description: 'Server is in a Warning Alarm Stat'
+        -
+          uuid: d2f49ee8f504444397ab3d10cb000e8a
+          name: 'Server Dedup Rate Megabytes Sec'
+          type: SNMP_AGENT
+          snmp_oid: 'EXAGRID-MIB::egServerDedupRateMegabytesSec.0'
+          key: egServerDedupRateMegabytesSec
+          delay: 5m
+          history: 7d
+          trends: 90d
+          value_type: FLOAT
+          units: MB/s
+          description: 'Rate at which data previously landed is being deduplicated on this ExaGrid server, in megabytes per second'
+        -
+          uuid: 0e722df4a9ea4a8591740695e8d11fce
+          name: 'Server Read Rate Megabytes Sec'
+          type: SNMP_AGENT
+          snmp_oid: 'EXAGRID-MIB::egServerReadRateMegabytesSec.0'
+          key: egServerReadRateMegabytesSec
+          delay: 5m
+          history: 7d
+          trends: 90d
+          value_type: FLOAT
+          units: MB/s
+          description: 'Rate at which data is being read from the ExaGrid server, in megabytes per second'
+        -
+          uuid: 81efc155bafc42fbb59eb49074dc0d1d
+          name: 'Server Write Rate Megabytes Sec'
+          type: SNMP_AGENT
+          snmp_oid: 'EXAGRID-MIB::egServerWriteRateMegabytesSec.0'
+          key: egServerWriteRateMegabytesSec
+          delay: 5m
+          history: 7d
+          trends: 90d
+          value_type: FLOAT
+          units: MB/s
+          description: 'Rate at which data is being written to the ExaGrid server, in megabytes per second'
+      macros:
+        -
+          macro: '{$VFS.FS.FSNAME.NOT_MATCHES}'
+          value: ^(/dev|/sys|/run|/proc|.+/shm$|/home.+$)
+          description: 'This macro is used in filesystems discovery. Can be overridden on the host or linked template level'
+      dashboards:
+        -
+          uuid: 60bbe2cad2ad4358ae7b0ab296741951
+          name: 'Exagrid Summary'
+          pages:
+            -
+              widgets:
+                -
+                  type: GRAPH_CLASSIC
+                  width: '11'
+                  height: '5'
+                  fields:
+                    -
+                      type: GRAPH
+                      name: graphid
+                      value:
+                        host: 'Exagrid Storage'
+                        name: 'Write Rate MB/s'
+                -
+                  type: GRAPH_CLASSIC
+                  x: '11'
+                  width: '11'
+                  height: '5'
+                  fields:
+                    -
+                      type: GRAPH
+                      name: graphid
+                      value:
+                        host: 'Exagrid Storage'
+                        name: 'Dedup Rate MB/s'
+                -
+                  type: GRAPH_CLASSIC
+                  'y': '5'
+                  width: '11'
+                  height: '5'
+                  fields:
+                    -
+                      type: GRAPH
+                      name: graphid
+                      value:
+                        host: 'Exagrid Storage'
+                        name: 'Read Rate MB/s'
+                -
+                  type: GRAPH_CLASSIC
+                  name: 'Landing Space'
+                  'y': '10'
+                  width: '11'
+                  height: '5'
+                  fields:
+                    -
+                      type: GRAPH
+                      name: graphid
+                      value:
+                        host: 'Exagrid Storage'
+                        name: 'Landing Space'
+                -
+                  type: GRAPH_CLASSIC
+                  name: 'Retention Space'
+                  x: '11'
+                  'y': '5'
+                  width: '11'
+                  height: '10'
+                  fields:
+                    -
+                      type: GRAPH
+                      name: graphid
+                      value:
+                        host: 'Exagrid Storage'
+                        name: 'Retention Space'
+      valuemaps:
+        -
+          uuid: 49bb3e59d9454eaebbd949ecf5a207f9
+          name: ServerAlarmState
+          mappings:
+            -
+              value: '1'
+              newvalue: 'Server has no alarms'
+            -
+              value: '2'
+              newvalue: 'Server is in a Warning Alarm State'
+            -
+              value: '3'
+              newvalue: 'Server is in an Error Alarm State'
+            -
+              type: DEFAULT
+              newvalue: 'Not Defined'
+  graphs:
+    -
+      uuid: 591665fa1a9945ac94e09b8a45771259
+      name: 'Backup Data'
+      ymin_type_1: FIXED
+      graph_items:
+        -
+          color: 2774A4
+          item:
+            host: 'Exagrid Storage'
+            key: egBackupDataAvailable
+        -
+          sortorder: '1'
+          color: A54F10
+          item:
+            host: 'Exagrid Storage'
+            key: egBackupDataSpaceConsumed
+    -
+      uuid: ae79862198504e9bab99d49dff797d27
+      name: 'Dedup Rate MB/s'
+      graph_items:
+        -
+          sortorder: '1'
+          color: F63100
+          item:
+            host: 'Exagrid Storage'
+            key: egServerDedupRateMegabytesSec
+    -
+      uuid: 4628fae0a31f47cfb5a59b8288fa4af2
+      name: 'Landing Space'
+      ymin_type_1: FIXED
+      graph_items:
+        -
+          color: 1A7C11
+          item:
+            host: 'Exagrid Storage'
+            key: egLandingSpaceAvailable
+        -
+          sortorder: '1'
+          color: F63100
+          item:
+            host: 'Exagrid Storage'
+            key: egLandingSpaceConfigured
+    -
+      uuid: 6f0c30f4d50f4adca87f1a7b064071ac
+      name: 'Read Rate MB/s'
+      graph_items:
+        -
+          sortorder: '1'
+          color: F63100
+          item:
+            host: 'Exagrid Storage'
+            key: egServerReadRateMegabytesSec
+    -
+      uuid: 473c93dec0bf49188b624d7e10638e82
+      name: 'Retention Space'
+      ymin_type_1: FIXED
+      graph_items:
+        -
+          color: 2774A4
+          item:
+            host: 'Exagrid Storage'
+            key: egRetentionSpaceConfigured
+        -
+          sortorder: '1'
+          color: 7CB342
+          item:
+            host: 'Exagrid Storage'
+            key: egRetentionSpaceAvailable
+        -
+          sortorder: '2'
+          color: 5D4037
+          item:
+            host: 'Exagrid Storage'
+            key: egRetentionSpacePrimaryShares
+        -
+          sortorder: '3'
+          color: A54F10
+          item:
+            host: 'Exagrid Storage'
+            key: egRetentionSpacePrimarySharesPendingPurge
+        -
+          sortorder: '4'
+          color: 4A148C
+          item:
+            host: 'Exagrid Storage'
+            key: egRetentionSpaceReplicas
+        -
+          sortorder: '5'
+          color: 6C59DC
+          item:
+            host: 'Exagrid Storage'
+            key: egRetentionSpaceReplicasPendingPurge
+    -
+      uuid: 1de9e9ab2b6a46a7831bb1698c86604f
+      name: 'Write Rate MB/s'
+      graph_items:
+        -
+          sortorder: '1'
+          color: 1A7C11
+          item:
+            host: 'Exagrid Storage'
+            key: egServerWriteRateMegabytesSec
